@@ -1,0 +1,333 @@
+import { useState, useEffect } from "react";
+
+export default function App() {
+  const [expandedFeature, setExpandedFeature] = useState(null);
+  const [currentStep, setCurrentStep] = useState(0);
+
+  // Feature details
+  const featureDetails = {
+    "Real-time carbon tracking": {
+      icon: (
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      description: "Monitor your carbon footprint instantly based on daily habits like travel, diet, and energy use."
+    },
+    "Eco-creature companion": {
+      icon: (
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ),
+      description: "Nurture a cute digital twin that grows and evolves with your eco-friendly choices."
+    },
+    "Weekly goals and behavioral nudges": {
+      icon: (
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      description: "Get personalized, actionable tasks tailored to your lifestyle and progress."
+    },
+    "Leaderboard and gamified competition": {
+      icon: (
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-9c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      description: "Compete with friends to climb the eco-friendly rankings and earn badges."
+    },
+    "Progress tracker with charts and emojis": {
+      icon: (
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4v15a1 1 0 001 1h14a1 1 0 001-1V4" />
+        </svg>
+      ),
+      description: "Visualize your green journey with fun, engaging graphics and emoji-based feedback."
+    },
+    "Premium tier for deeper insights": {
+      icon: (
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      ),
+      description: "Unlock advanced analytics and strategies for a smarter climate impact."
+    }
+  };
+
+  // How It Works steps (without images)
+  const steps = [
+    {
+      title: "Track",
+      description: "Input daily habits like travel, diet, and energy use"
+    },
+    {
+      title: "Grow",
+      description: "Watch your Carbon Twin evolve with every green choice"
+    },
+    {
+      title: "Compete",
+      description: "Challenge friends on the global leaderboard"
+    },
+    {
+      title: "Impact",
+      description: "Export reports to share your sustainability journey"
+    }
+  ];
+
+  // Auto-advance steps
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentStep(prev => (prev + 1) % steps.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-white font-sans antialiased">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-white border-b border-gray-100">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="text-xl md:text-2xl font-semibold text-[#7FB648]">Carbon Twin</div>
+          <nav className="hidden md:flex space-x-8">
+            {["Features", "How It Works", "Pricing", "Contact"].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase().replace(" ", "-")}`}
+                className="text-gray-600 hover:text-[#7FB648] transition-colors"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+          <button className="px-6 py-2 rounded-full bg-[#7FB648] text-white hover:bg-[#6da83a] transition-colors text-sm font-medium">
+            Download App
+          </button>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="pt-20 pb-16 md:py-24 bg-gradient-to-b from-green-50 to-white">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              Turn Climate Action Into Adventure
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 mb-8">
+              Gamifying climate action through personalized sustainability.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <button className="px-8 py-3 rounded-full bg-[#7FB648] text-white text-lg font-semibold hover:bg-[#6da83a] transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-0.5 duration-200">
+                Download App
+              </button>
+              <button className="px-8 py-3 rounded-full border border-[#7FB648] text-[#7FB648] text-lg font-semibold hover:bg-green-50 transition-colors">
+                Learn More
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Key Features Grid */}
+      <section id="features" className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">Key Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {Object.keys(featureDetails).map((feature, index) => (
+              <div
+                key={index}
+                className="bg-gray-50 rounded-xl p-6 transition-all duration-300 hover:shadow-md group"
+                onClick={() => setExpandedFeature(expandedFeature === feature ? null : feature)}
+                role="button"
+                tabIndex={0}
+                aria-expanded={expandedFeature === feature}
+                aria-controls={`feature-${index}-content`}
+              >
+                <div className="flex items-center mb-4">
+                  <div className="w-10 h-10 rounded-full bg-[#7FB648]/10 text-[#7FB648] flex items-center justify-center mr-3">
+                    {featureDetails[feature].icon}
+                  </div>
+                  <h3 className="text-xl font-semibold">{feature}</h3>
+                </div>
+                <div 
+                  id={`feature-${index}-content`}
+                  className={`overflow-hidden transition-all duration-300 ${
+                    expandedFeature === feature ? 'max-h-40 opacity-100' : 'max-h-12 opacity-70'
+                  }`}
+                >
+                  <p className="text-gray-600 mb-6">
+                    {featureDetails[feature].description}
+                  </p>
+                </div>
+                <div className="flex items-center text-[#7FB648] font-medium cursor-pointer">
+                  <span>{expandedFeature === feature ? "Hide Details" : "Learn More"}</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={`ml-2 h-4 w-4 transition-transform duration-300 ${
+                      expandedFeature === feature ? 'rotate-180' : ''
+                    }`}
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section id="how-it-works" className="py-16 md:py-24 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">How It Works</h2>
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+              <div className="p-8 md:p-10 flex flex-col justify-center">
+                <div className="space-y-6">
+                  {/* Step Indicator */}
+                  <div className="flex items-center space-x-2">
+                    {steps.map((_, i) => (
+                      <div 
+                        key={i}
+                        className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                          i === currentStep ? 'bg-[#7FB648] w-4' : 'bg-gray-300'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  
+                  {/* Step Content */}
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-bold text-gray-900">{steps[currentStep].title}</h3>
+                    <p className="text-gray-600">{steps[currentStep].description}</p>
+                  </div>
+                  
+                  {/* Navigation Arrows */}
+                  <div className="flex justify-between pt-4">
+                    <button
+                      onClick={() => setCurrentStep(prev => (prev - 1 + steps.length) % steps.length)}
+                      className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                      aria-label="Previous step"
+                    >
+                      <svg className="w-5 h-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => setCurrentStep(prev => (prev + 1) % steps.length)}
+                      className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                      aria-label="Next step"
+                    >
+                      <svg className="w-5 h-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">Pricing Plans</h2>
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-xl shadow-lg p-8 md:p-10 border border-gray-100">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <div>
+                  <h3 className="text-2xl font-bold">Carbon Twin Premium</h3>
+                  <p className="text-gray-600 mt-2">Unlock advanced features and deeper insights</p>
+                </div>
+                <div className="mt-4 md:mt-0">
+                  <div className="text-3xl font-bold">$4.99<span className="text-base font-normal text-gray-500">/month</span></div>
+                </div>
+              </div>
+              <ul className="space-y-4 mb-8">
+                {[
+                  "Advanced carbon analytics",
+                  "Personalized sustainability tips",
+                  "Unlimited eco-creature customization",
+                  "Priority customer support",
+                  "Exportable progress reports"
+                ].map((feature, i) => (
+                  <li key={i} className="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-[#7FB648] mr-3"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <button className="w-full py-3 rounded-full bg-[#7FB648] text-white font-semibold hover:bg-[#6da83a] transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-0.5 duration-200">
+                Upgrade to Premium
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 md:py-24 bg-gradient-to-r from-[#7FB648] to-[#4CAF50]">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Make a Difference?</h2>
+          <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+            Join thousands of users who are turning climate action into a fun, rewarding adventure.
+          </p>
+          <button className="px-8 py-4 rounded-full bg-white text-[#7FB648] font-semibold hover:bg-gray-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300">
+            Download Carbon Twin Now
+          </button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer id="contact" className="bg-gray-100 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h4 className="text-lg font-bold mb-4">Carbon Twin</h4>
+              <p className="text-gray-600">
+                Gamifying climate action through personalized sustainability.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-lg font-bold mb-4">Features</h4>
+              <ul className="space-y-2 text-gray-600">
+                <li>Real-Time Tracking</li>
+                <li>Eco-Creature Companion</li>
+                <li>Leaderboard</li>
+                <li>Premium Insights</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-bold mb-4">Company</h4>
+              <ul className="space-y-2 text-gray-600">
+                <li>About Us</li>
+                <li>Blog</li>
+                <li>Careers</li>
+                <li>Contact</li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-200 pt-8 mt-8 text-center text-gray-600">
+            <p>© 2024 Carbon Twin. All rights reserved.</p>
+            <div className="mt-4 space-x-6">
+              <a href="#" className="hover:text-[#7FB648]">Privacy Policy</a>
+              <a href="#" className="hover:text-[#7FB648]">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
